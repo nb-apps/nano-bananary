@@ -21,7 +21,6 @@ export default {
       unknown: "发生未知错误。",
       useAsInputFailed: "无法使用生成的图像作为新输入。",
       selectOneToAnimate: "请选择一张图片以制作动画。",
-      noApiKey: "未配置API密钥。请在设置面板中添加您的密钥。",
     },
     loading: {
         step1: "第1步：创建线稿...",
@@ -34,6 +33,26 @@ export default {
         switchToLight: "切换到浅色主题",
         switchToDark: "切换到深色主题"
     }
+  },
+  settings: {
+    title: "设置",
+    apiKey: {
+      label: "API 密钥",
+      placeholder: "输入您的 Gemini API 密钥",
+      description: "您的密钥安全地存储在您浏览器的本地存储中。",
+      error: "未设置 API 密钥。请在设置中输入您的密钥。",
+    },
+    baseUrl: {
+      label: "API Base URL (可选)",
+      placeholder: "例如, https://my-proxy.com/v1",
+      description: "为 API 请求使用自定义端点，用于代理或兼容服务。",
+    },
+    watermark: {
+      label: "水印文本",
+      placeholder: "例如, 我的应用",
+      description: "此文本将添加到生成图像的右下角。",
+    },
+    close: "关闭"
   },
   transformationSelector: {
     title: "开始“蕉”虑吧！",
@@ -84,25 +103,6 @@ export default {
   },
   error: {
     title: "发生错误"
-  },
-  settings: {
-    title: "API和应用设置",
-    apiKey: {
-      label: "自定义Gemini API密钥",
-      placeholder: "在此输入您的API密钥",
-      description: "您的密钥将保存在本地浏览器中，绝不会发送到我们的服务器。"
-    },
-    baseUrl: {
-      label: "API Base URL (可选)",
-      placeholder: "例如：https://my-proxy.com",
-      description: "为API请求使用自定义端点。所有请求将被代理到此URL。"
-    },
-    watermark: {
-      label: "水印文本",
-      placeholder: "例如：我的超棒应用",
-      description: "此文本将添加到生成图像的右下角。留空则禁用。"
-    },
-    close: "关闭"
   },
   transformations: {
     categories: {

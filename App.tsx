@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { TRANSFORMATIONS } from './constants';
-import { editImage, generateImageFromText, generateImageEditsBatch } from './services/geminiService';
+import { editImage, generateImageFromText } from './services/geminiService';
 import type { GeneratedContent, Transformation } from './types';
 import TransformationSelector from './components/TransformationSelector';
 import ResultDisplay from './components/ResultDisplay';
@@ -70,44 +70,34 @@ const App: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<Transformation | null>(null);
   const [mobileView, setMobileView] = useState<MobileView>('input');
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-  const [settings, setSettings] = useState<Settings>({
-    apiKey: '',
-    baseUrl: '',
-    watermark: 'Nano Bananary｜ZHO',
-  });
-
-  useEffect(() => {
-    const initialSettings: Partial<Settings> = {};
-    // Fallback to environment variables if available
-    if (process.env.API_KEY) {
-        initialSettings.apiKey = process.env.API_KEY;
-    }
-    if (process.env.BASE_URL) {
-        initialSettings.baseUrl = process.env.BASE_URL;
-    }
-    
-    try {
-      const savedSettings = localStorage.getItem('appSettings');
-      if (savedSettings) {
-        // Saved settings from browser override environment variables
-        Object.assign(initialSettings, JSON.parse(savedSettings));
+  const [settings, setSettings] = useState<Settings>(() => {
+      try {
+        const savedSettings = localStorage.getItem('appSettings');
+        const parsedSettings = savedSettings ? JSON.parse(savedSettings) : {};
+        // Fallback to environment variables if not in localStorage
+        return {
+          apiKey: parsedSettings.apiKey || import.meta.env.VITE_API_KEY || '',
+          baseUrl: parsedSettings.baseUrl || import.meta.env.VITE_BASE_URL || '',
+          watermark: parsedSettings.watermark ?? 'Nano Bananary｜ZHO',
+        };
+      } catch {
+        return {
+          apiKey: import.meta.env.VITE_API_KEY || '',
+          baseUrl: import.meta.env.VITE_BASE_URL || '',
+          watermark: 'Nano Bananary｜ZHO',
+        };
       }
-    } catch (e) {
-      console.error("Failed to load settings from localStorage", e);
-    }
-
-    setSettings(prev => ({ ...prev, ...initialSettings }));
-  }, []);
+  });
 
   const handleSettingsChange = (newSettings: Partial<Settings>) => {
     setSettings(prev => {
-      const updatedSettings = { ...prev, ...newSettings };
-      try {
-        localStorage.setItem('appSettings', JSON.stringify(updatedSettings));
-      } catch (e) {
-        console.error("Failed to save settings to localStorage", e);
-      }
-      return updatedSettings;
+        const updated = { ...prev, ...newSettings };
+        try {
+            localStorage.setItem('appSettings', JSON.stringify(updated));
+        } catch (e) {
+            console.error("Failed to save settings to localStorage", e);
+        }
+        return updated;
     });
   };
   
@@ -180,11 +170,11 @@ const App: React.FC = () => {
   }, [settings.watermark]);
 
   const handleGenerateImage = useCallback(async () => {
-    if (!settings.apiKey && !process.env.API_KEY) {
-        setError(t('app.error.noApiKey'));
-        return;
+    if (!settings.apiKey) {
+      setError(t('settings.apiKey.error'));
+      setIsSettingsModalOpen(true);
+      return;
     }
-      
     const promptToUse = selectedTransformation?.prompt === 'CUSTOM' ? customPrompt : selectedTransformation?.prompt;
 
     if (!selectedTransformation || !promptToUse?.trim()) {
@@ -201,7 +191,7 @@ const App: React.FC = () => {
     try {
         // Text-to-image for custom prompt when no images are provided
         if (selectedTransformation.key === 'customPrompt' && !primaryImageUrl) {
-            const result = await generateImageFromText(promptToUse, imageAspectRatio);
+            const result = await generateImageFromText(promptToUse, imageAspectRatio, settings.apiKey, settings.baseUrl);
             result.imageUrl = await applyWatermarks(result.imageUrl);
             setGeneratedContent(result);
             setHistory(prev => [result, ...prev]);
@@ -220,7 +210,7 @@ const App: React.FC = () => {
                 base64: url.split(',')[1],
                 mimeType: url.split(';')[0].split(':')[1] ?? 'image/png'
             }));
-            const result = await editImage(promptToUse, imageParts, null);
+            const result = await editImage(promptToUse, imageParts, null, settings.apiKey, settings.baseUrl);
             result.imageUrl = await applyWatermarks(result.imageUrl);
             setGeneratedContent(result);
             setHistory(prev => [result, ...prev]);
@@ -233,7 +223,7 @@ const App: React.FC = () => {
             }
             setLoadingMessage(t('app.loading.step1'));
             const primaryPart = [{ base64: primaryImageUrl.split(',')[1], mimeType: primaryImageUrl.split(';')[0].split(':')[1] ?? 'image/png' }];
-            const stepOneResult = await editImage(promptToUse, primaryPart, null);
+            const stepOneResult = await editImage(promptToUse, primaryPart, null, settings.apiKey, settings.baseUrl);
 
             if (!stepOneResult.imageUrl) throw new Error("Step 1 (line art) failed to generate an image.");
             
@@ -251,7 +241,7 @@ const App: React.FC = () => {
                 { base64: resizedSecondaryImageUrl.split(',')[1], mimeType: resizedSecondaryImageUrl.split(';')[0].split(':')[1] ?? 'image/png' }
             ];
             
-            const stepTwoResult = await editImage(selectedTransformation.stepTwoPrompt!, stepTwoParts, null);
+            const stepTwoResult = await editImage(selectedTransformation.stepTwoPrompt!, stepTwoParts, null, settings.apiKey, settings.baseUrl);
             
             stepTwoResult.imageUrl = await applyWatermarks(stepTwoResult.imageUrl);
 
@@ -283,7 +273,7 @@ const App: React.FC = () => {
             }
 
             setLoadingMessage(t('app.loading.default'));
-            const result = await editImage(promptToUse, imageParts, maskBase64);
+            const result = await editImage(promptToUse, imageParts, maskBase64, settings.apiKey, settings.baseUrl);
 
             result.imageUrl = await applyWatermarks(result.imageUrl);
 
@@ -297,7 +287,7 @@ const App: React.FC = () => {
       setIsLoading(false);
       setLoadingMessage('');
     }
-  }, [primaryImageUrl, secondaryImageUrl, selectedTransformation, maskDataUrl, customPrompt, multiImageUrls, t, imageAspectRatio, applyWatermarks, settings.apiKey]);
+  }, [primaryImageUrl, secondaryImageUrl, selectedTransformation, maskDataUrl, customPrompt, multiImageUrls, t, imageAspectRatio, applyWatermarks, settings]);
   
   const handleGenerate = useCallback(() => {
     handleGenerateImage();
@@ -471,7 +461,7 @@ const App: React.FC = () => {
             </button>
             <LanguageSwitcher />
             <ThemeSwitcher />
-            <button
+             <button
               onClick={() => setIsSettingsModalOpen(true)}
               className="flex items-center justify-center w-10 h-10 text-sm font-semibold text-[var(--text-primary)] bg-[rgba(107,114,128,0.2)] rounded-full hover:bg-[rgba(107,114,128,0.4)] transition-colors duration-200"
               aria-label={t('app.settings')}

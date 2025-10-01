@@ -21,7 +21,6 @@ export default {
       unknown: "An unknown error occurred.",
       useAsInputFailed: "Could not use the generated image as a new input.",
       selectOneToAnimate: "Please select an image to animate.",
-      noApiKey: "API Key is not configured. Please add your key in the settings panel.",
     },
     loading: {
       step1: "Step 1: Creating line art...",
@@ -34,6 +33,26 @@ export default {
         switchToLight: "Switch to light theme",
         switchToDark: "Switch to dark theme"
     }
+  },
+  settings: {
+    title: "Settings",
+    apiKey: {
+      label: "API Key",
+      placeholder: "Enter your Gemini API Key",
+      description: "Your key is stored securely in your browser's local storage.",
+      error: "API Key is not set. Please enter your key in the settings.",
+    },
+    baseUrl: {
+      label: "API Base URL (Optional)",
+      placeholder: "e.g., https://my-proxy.com/v1",
+      description: "Use a custom endpoint for API requests, for proxies or compatible services.",
+    },
+    watermark: {
+        label: "Watermark Text",
+        placeholder: "e.g., My Awesome App",
+        description: "This text will be added to the bottom-right of generated images.",
+    },
+    close: "Close"
   },
   transformationSelector: {
     title: "Let's Go Bananas!",
@@ -84,25 +103,6 @@ export default {
   },
   error: {
     title: "An Error Occurred"
-  },
-  settings: {
-    title: "API & App Settings",
-    apiKey: {
-      label: "Custom Gemini API Key",
-      placeholder: "Enter your API key here",
-      description: "Your key is saved locally in your browser and never sent to our servers."
-    },
-    baseUrl: {
-      label: "API Base URL (Optional)",
-      placeholder: "e.g., https://my-proxy.com",
-      description: "Use a custom endpoint for API requests. All requests will be proxied to this URL."
-    },
-    watermark: {
-      label: "Watermark Text",
-      placeholder: "e.g., My Awesome App",
-      description: "This text will be added to the bottom-right of generated images. Leave empty to disable."
-    },
-    close: "Close"
   },
   transformations: {
     categories: {

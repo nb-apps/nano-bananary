@@ -2,7 +2,7 @@
 
 香蕉超市 (Nano Bananary) 是一个功能强大且充满乐趣的Web应用程序，它利用 Google Gemini API 来执行各种富有创意的图像编辑和生成任务。您可以上传一张图片，从超过50种独特效果中进行选择，或者编写您自己的提示语，以令人惊叹的方式变换您的照片。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fproject-frame%2Fnano-bananary&env=API_KEY,BASE_URL&envDescription=Enter%20your%20Gemini%20API%20Key.%20The%20Base%20URL%20is%20optional%20and%20used%20for%20proxies.&project-name=nano-bananary&repository-name=nano-bananary)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fproject-frame%2Fnano-bananary&env=VITE_API_KEY,VITE_BASE_URL&envDescription=Enter%20your%20Gemini%20API%20Key.%20The%20Base%20URL%20is%20optional%20and%20used%20for%20proxies.&project-name=nano-bananary&repository-name=nano-bananary&framework=vite)
 
 暴改自 ZHO 大佬的项目 Nano Bananary ，增加了一些模板及支持Vercel一键部署。
 ---
@@ -29,7 +29,8 @@
 
 ### 环境要求
 
-- [Node.js](https://nodejs.org/) (用于运行 `npx`)
+- [Node.js](https://nodejs.org/) (LTS version)
+- [npm](https://www.npmjs.com/) 或 [yarn](https://yarnpkg.com/)
 - 一款现代的网页浏览器
 
 ### 安装与运行
@@ -40,29 +41,31 @@
     cd nano-bananary
     ```
 
-2.  **配置 API 密钥**
-    本应用程序设计为通过应用内的设置面板提供 API 密钥。该密钥会安全地存储在您浏览器的 `localStorage` 中。本地开发不需要 `.env` 文件。
-
-3.  **启动应用服务**
-    由于这是一个标准的 HTML/JS/CSS 项目，没有复杂的构建系统，您可以使用任何简单的静态文件服务器来运行它。最简单的方法是使用 `serve`：
+2.  **安装依赖**
     ```bash
-    npx serve
+    npm install
     ```
-    这会启动一个本地服务器。然后，您可以在浏览器中打开提供的 URL (例如, `http://localhost:3000`)。
+
+3.  **启动开发服务器**
+    ```bash
+    npm run dev
+    ```
+    这会启动一个本地开发服务器。然后，您可以在浏览器中打开提供的 URL (例如, `http://localhost:5173`)。
 
 4.  **添加您的 API 密钥**
-    应用运行后，点击头部的 **设置** (⚙️) 图标，添加您的 Google Gemini API 密钥。
+    应用运行后，点击头部的 **设置** (⚙️) 图标，添加您的 Google Gemini API 密钥。该密钥会安全地存储在您浏览器的 `localStorage` 中。
 
 ## 🚀 使用 Vercel 一键部署
 
 您只需单击一下，就可以将您自己的香蕉超市版本部署到 Vercel。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fproject-frame%2Fnano-bananary&env=API_KEY,BASE_URL&envDescription=Enter%20your%20Gemini%20API%20Key.%20The%20Base%20URL%20is%20optional%20and%20used%20for%20proxies.&project-name=nano-bananary&repository-name=nano-bananary)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fproject-frame%2Fnano-bananary&env=VITE_API_KEY,VITE_BASE_URL&envDescription=Enter%20your%20Gemini%20API%20Key.%20The%20Base%20URL%20is%20optional%20and%20used%20for%20proxies.&project-name=nano-bananary&repository-name=nano-bananary&framework=vite)
 
-在 Vercel 设置过程中，系统会提示您输入 `API_KEY` 和 `BASE_URL` (可选)。这些将作为环境变量配置在您的 Vercel 应用中。
+在 Vercel 设置过程中，系统会提示您输入 `VITE_API_KEY` 和 `VITE_BASE_URL` (可选)。这些将作为环境变量配置在您的 Vercel 应用中。部署后的应用会优先使用您在应用内设置面板中配置的 API 信息，如果未配置，则会使用这些环境变量作为备用。
 
 ## 🛠️ 技术栈
 
+- **构建工具:** Vite
 - **前端:** React, TypeScript
 - **AI 模型:** Google Gemini API (`@google/genai`)
 - **样式:** Tailwind CSS (通过 CDN)
