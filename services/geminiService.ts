@@ -1,4 +1,5 @@
 
+
 import { GoogleGenAI, Modality } from "@google/genai";
 import type { GeneratedContent } from '../types';
 
@@ -37,7 +38,7 @@ function getAiClient(): GoogleGenAI {
  */
 async function runWithProxy<T>(apiCall: () => Promise<T>): Promise<T> {
   const settings = getSettings();
-  const baseUrl = settings.baseUrl;
+  const baseUrl = settings.baseUrl ?? process.env.BASE_URL;
 
   if (!baseUrl || !baseUrl.trim()) {
     return apiCall(); // No proxy needed, run directly

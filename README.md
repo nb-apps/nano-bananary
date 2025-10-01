@@ -1,9 +1,10 @@
-# 🍌 香蕉超市｜ZHO
+# 🍌 香蕉超市
 
 香蕉超市 (Nano Bananary) 是一个功能强大且充满乐趣的Web应用程序，它利用 Google Gemini API 来执行各种富有创意的图像编辑和生成任务。您可以上传一张图片，从超过50种独特效果中进行选择，或者编写您自己的提示语，以令人惊叹的方式变换您的照片。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fproject-frame%2Fnano-bananary&env=API_KEY&envDescription=Your%20Google%20Gemini%20API%20Key&project-name=nano-bananary&repository-name=nano-bananary)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fproject-frame%2Fnano-bananary&env=API_KEY,BASE_URL&envDescription=Enter%20your%20Gemini%20API%20Key.%20The%20Base%20URL%20is%20optional%20and%20used%20for%20proxies.&project-name=nano-bananary&repository-name=nano-bananary)
 
+暴改自 ZHO 大佬的项目 Nano Bananary ，增加了一些模板及支持Vercel一键部署。
 ---
 
 ## ✨ 主要功能
@@ -56,9 +57,9 @@
 
 您只需单击一下，就可以将您自己的香蕉超市版本部署到 Vercel。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fproject-frame%2Fnano-bananary&env=API_KEY&envDescription=Your%20Google%20Gemini%20API%20Key&project-name=nano-bananary&repository-name=nano-bananary)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fproject-frame%2Fnano-bananary&env=API_KEY,BASE_URL&envDescription=Enter%20your%20Gemini%20API%20Key.%20The%20Base%20URL%20is%20optional%20and%20used%20for%20proxies.&project-name=nano-bananary&repository-name=nano-bananary)
 
-在 Vercel 设置过程中，系统会提示您输入 `API_KEY`。这会将其设置为您部署应用的环境变量。
+在 Vercel 设置过程中，系统会提示您输入 `API_KEY` 和 `BASE_URL` (可选)。这些将作为环境变量配置在您的 Vercel 应用中。
 
 ## 🛠️ 技术栈
 

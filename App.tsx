@@ -77,14 +77,26 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
+    const initialSettings: Partial<Settings> = {};
+    // Fallback to environment variables if available
+    if (process.env.API_KEY) {
+        initialSettings.apiKey = process.env.API_KEY;
+    }
+    if (process.env.BASE_URL) {
+        initialSettings.baseUrl = process.env.BASE_URL;
+    }
+    
     try {
       const savedSettings = localStorage.getItem('appSettings');
       if (savedSettings) {
-        setSettings(prev => ({ ...prev, ...JSON.parse(savedSettings) }));
+        // Saved settings from browser override environment variables
+        Object.assign(initialSettings, JSON.parse(savedSettings));
       }
     } catch (e) {
       console.error("Failed to load settings from localStorage", e);
     }
+
+    setSettings(prev => ({ ...prev, ...initialSettings }));
   }, []);
 
   const handleSettingsChange = (newSettings: Partial<Settings>) => {
