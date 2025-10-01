@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍌 Nano Bananary｜ZHO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        /* Default Dark Theme */
+        --bg-primary: #000000;
+        --bg-secondary: #1a1a1a;
+        --bg-card: #111111;
+        --bg-card-alpha: rgba(17, 17, 17, 0.6);
+        --text-primary: #e5e7eb; /* gray-200 */
+        --text-secondary: #9ca3af; /* gray-400 */
+        --text-tertiary: #6b7280; /* gray-500 */
+        --border-primary: rgba(255, 255, 255, 0.1);
+        --accent-primary: #f97316; /* orange-500 */
+        --accent-secondary: #facc15; /* yellow-400 */
+        --accent-primary-hover: #ea580c; /* orange-600 */
+        --accent-secondary-hover: #eab308; /* yellow-500 */
+        --accent-shadow: rgba(249, 115, 22, 0.2);
+        --text-on-accent: #000000;
+        --bg-disabled: #374151; /* gray-700 */
+        --text-disabled: #6b7280; /* gray-500 */
+        --bg-error: rgba(153, 27, 27, 0.5);
+        --border-error: #b91c1c;
+        --text-error: #fca5a5;
+      }
+      html[data-theme="light"] {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f3f4f6;
+        --bg-card: #ffffff;
+        --bg-card-alpha: rgba(255, 255, 255, 0.6);
+        --text-primary: #111827; /* gray-900 */
+        --text-secondary: #4b5563; /* gray-600 */
+        --text-tertiary: #6b7280; /* gray-500 */
+        --border-primary: rgba(0, 0, 0, 0.1);
+        --accent-primary: #FF96AC;
+        --accent-secondary: #f87171; /* red-400 */
+        --accent-primary-hover: #f472b6; /* pink-400 */
+        --accent-secondary-hover: #ef4444; /* red-500 */
+        --accent-shadow: rgba(255, 150, 172, 0.25);
+        --text-on-accent: #ffffff;
+        --bg-disabled: #e5e7eb; /* gray-200 */
+        --text-disabled: #9ca3af; /* gray-400 */
+        --bg-error: rgba(255, 235, 238, 1);
+        --border-error: #ef4444;
+        --text-error: #dc2626;
+      }
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      /* Improved mobile touch feedback */
+      button:active, [role="button"]:active {
+        transform: scale(0.97);
+        transition: transform 0.1s ease;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.17.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
