@@ -181,6 +181,12 @@ const ImageEditorCanvas: React.FC<ImageEditorCanvasProps> = ({ onImageSelect, in
   const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsDragging(true); };
   const handleDragLeave = (e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsDragging(false); };
 
+  const UploaderButton: React.FC<{ htmlFor: string; children: React.ReactNode; isPrimary?: boolean }> = ({ htmlFor, children, isPrimary }) => (
+    <label htmlFor={htmlFor} className={`cursor-pointer py-2 px-5 font-semibold rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center gap-2 ${ isPrimary ? 'bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-[var(--text-on-accent)] shadow-[var(--accent-shadow)] hover:from-[var(--accent-primary-hover)] hover:to-[var(--accent-secondary-hover)]' : 'bg-[rgba(107,114,128,0.2)] hover:bg-[rgba(107,114,128,0.4)] text-[var(--text-primary)]'}`}>
+        {children}
+    </label>
+  );
+
   return (
     <div className="flex flex-col gap-4">
         <div
@@ -191,11 +197,23 @@ const ImageEditorCanvas: React.FC<ImageEditorCanvasProps> = ({ onImageSelect, in
             } ${initialImageUrl ? 'p-0' : 'p-4 border-2 border-dashed border-[var(--border-primary)]'}`}
         >
             {!initialImageUrl ? (
-                <label htmlFor="file-upload" className="flex flex-col items-center justify-center text-[var(--text-tertiary)] cursor-pointer w-full h-full">
+                 <div className="flex flex-col items-center justify-center text-[var(--text-tertiary)] w-full h-full">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.158 0h.008v.008h-.008V8.25z" /></svg>
-                    <p className="mb-2 text-sm"><span className="font-semibold text-[var(--text-secondary)]">{t('imageEditor.upload')}</span> {t('imageEditor.dragAndDrop')}</p>
-                    <input id="file-upload" type="file" className="hidden" onChange={handleFileChange} accept="image/*" />
-                </label>
+                    <p className="mb-4 text-sm">{t('imageEditor.dragAndDrop')}</p>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <UploaderButton htmlFor="file-upload-gallery">
+                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" /></svg>
+                           {t('imageUploader.fromGallery')}
+                        </UploaderButton>
+                        <input id="file-upload-gallery" type="file" className="hidden" onChange={handleFileChange} accept="image/*" />
+                        
+                        <UploaderButton htmlFor="file-upload-camera" isPrimary>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" /></svg>
+                            {t('imageUploader.takePhoto')}
+                        </UploaderButton>
+                        <input id="file-upload-camera" type="file" className="hidden" onChange={handleFileChange} accept="image/*" capture="environment" />
+                    </div>
+                </div>
             ) : (
                 <>
                     <button onClick={onClearImage} className="absolute top-2 right-2 z-30 p-1 bg-black/50 backdrop-blur-sm rounded-full text-white hover:bg-red-600 transition-colors" aria-label="Remove image"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg></button>

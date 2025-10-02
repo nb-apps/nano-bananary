@@ -68,6 +68,12 @@ export default {
     undo: "撤销",
     clearMask: "清除蒙版"
   },
+  imageUploader: {
+    fromGallery: "从相册选择",
+    takePhoto: "使用相机",
+    gallery: "相册",
+    camera: "相机"
+  },
   resultDisplay: {
     viewModes: {
       result: "结果",

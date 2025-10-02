@@ -41,12 +41,22 @@ const UploaderBox: React.FC<UploaderBoxProps> = ({ onImageSelect, imageUrl, onCl
                 } ${imageUrl ? 'p-0' : 'p-4 border-2 border-dashed border-[var(--border-primary)]'}`}
             >
                 {!imageUrl ? (
-                    <label htmlFor={inputId} className="flex flex-col items-center justify-center text-[var(--text-tertiary)] cursor-pointer w-full h-full text-center">
+                    <div className="flex flex-col items-center justify-center text-[var(--text-tertiary)] w-full h-full text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.158 0h.008v.008h-.008V8.25z" /></svg>
-                        <p className="mb-1 text-xs font-semibold text-[var(--text-secondary)]">{t('imageEditor.upload')}</p>
-                        <p className="text-xs">{description}</p>
-                        <input id={inputId} type="file" className="hidden" onChange={handleFileChange} accept="image/*" />
-                    </label>
+                        <p className="mb-1 text-xs font-semibold text-[var(--text-secondary)]">{t('imageEditor.dragAndDrop')}</p>
+                        <p className="text-xs mb-3">{description}</p>
+                        <div className="flex flex-col gap-2 w-full px-4">
+                            <label htmlFor={`${inputId}-gallery`} className="cursor-pointer text-sm w-full text-center py-2 px-3 font-semibold rounded-md transition-colors duration-200 bg-[rgba(107,114,128,0.2)] hover:bg-[rgba(107,114,128,0.4)] text-[var(--text-primary)]">
+                                {t('imageUploader.gallery')}
+                            </label>
+                            <input id={`${inputId}-gallery`} type="file" className="hidden" onChange={handleFileChange} accept="image/*" />
+                            
+                            <label htmlFor={`${inputId}-camera`} className="cursor-pointer text-sm w-full text-center py-2 px-3 font-semibold rounded-md transition-colors duration-200 bg-[rgba(107,114,128,0.2)] hover:bg-[rgba(107,114,128,0.4)] text-[var(--text-primary)]">
+                                {t('imageUploader.camera')}
+                            </label>
+                            <input id={`${inputId}-camera`} type="file" className="hidden" onChange={handleFileChange} accept="image/*" capture="environment" />
+                        </div>
+                    </div>
                 ) : (
                     <>
                         <img src={imageUrl} alt={title} className="w-full h-full object-contain rounded-lg" />

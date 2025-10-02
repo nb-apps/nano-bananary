@@ -68,6 +68,12 @@ export default {
     undo: "Undo",
     clearMask: "Clear Mask"
   },
+  imageUploader: {
+    fromGallery: "From Gallery",
+    takePhoto: "Take Photo",
+    gallery: "Gallery",
+    camera: "Camera"
+  },
   resultDisplay: {
     viewModes: {
       result: "Result",

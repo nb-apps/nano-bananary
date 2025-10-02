@@ -34,6 +34,8 @@ const MultiImageGridUploader: React.FC<MultiImageGridUploaderProps> = ({ imageUr
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) handleFiles(event.target.files);
+        // Reset the input value to allow selecting the same file again
+        event.target.value = '';
     };
     const handleDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault(); event.stopPropagation(); setIsDragging(false);
@@ -71,12 +73,21 @@ const MultiImageGridUploader: React.FC<MultiImageGridUploaderProps> = ({ imageUr
                     isDragging ? 'outline-dashed outline-2 outline-offset-2 outline-[var(--accent-primary)] bg-[rgba(249,115,22,0.1)]' : ''
                     }`}
                 >
-                    <label htmlFor={inputId} className="flex flex-col items-center justify-center text-[var(--text-tertiary)] cursor-pointer w-full h-full">
+                    <div className="flex flex-col items-center justify-center text-[var(--text-tertiary)] w-full h-full">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
-                        <p className="text-sm font-semibold">{t('imageEditor.upload')}</p>
-                        <p className="text-xs text-center px-2">{`(${imageUrls.length}/${maxImages}) ${t('imageEditor.dragAndDrop')}`}</p>
-                        <input id={inputId} type="file" className="hidden" onChange={handleFileChange} accept="image/*" multiple />
-                    </label>
+                        <p className="text-xs text-center px-2 mb-3">{`(${imageUrls.length}/${maxImages}) ${t('imageEditor.dragAndDrop')}`}</p>
+                        <div className="flex flex-col gap-2 w-full px-4">
+                            <label htmlFor={`${inputId}-gallery`} className="cursor-pointer text-sm w-full text-center py-2 px-3 font-semibold rounded-md transition-colors duration-200 bg-[rgba(107,114,128,0.2)] hover:bg-[rgba(107,114,128,0.4)] text-[var(--text-primary)]">
+                                {t('imageUploader.gallery')}
+                            </label>
+                            <input id={`${inputId}-gallery`} type="file" className="hidden" onChange={handleFileChange} accept="image/*" multiple />
+
+                            <label htmlFor={`${inputId}-camera`} className="cursor-pointer text-sm w-full text-center py-2 px-3 font-semibold rounded-md transition-colors duration-200 bg-[rgba(107,114,128,0.2)] hover:bg-[rgba(107,114,128,0.4)] text-[var(--text-primary)]">
+                                {t('imageUploader.camera')}
+                            </label>
+                            <input id={`${inputId}-camera`} type="file" className="hidden" onChange={handleFileChange} accept="image/*" capture="environment" />
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
