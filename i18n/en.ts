@@ -36,6 +36,9 @@ export default {
   },
   settings: {
     title: "Settings",
+    kuaiApi: "Kuai API",
+    getCredits: "Get Credits",
+    videoTutorial: "Video Tutorial",
     apiKey: {
       label: "API Key",
       placeholder: "Enter your Gemini API Key",

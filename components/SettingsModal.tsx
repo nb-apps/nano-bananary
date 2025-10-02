@@ -22,6 +22,18 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, settings
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onSettingsChange({ [e.target.name]: e.target.value });
   };
+  
+  const ActionButton: React.FC<{ href: string; children: React.ReactNode; }> = ({ href, children }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="py-1 px-3 text-xs font-semibold rounded-full bg-[rgba(107,114,128,0.2)] hover:bg-[rgba(107,114,128,0.4)] text-[var(--text-primary)] transition-colors duration-200"
+    >
+      {children}
+    </a>
+  );
+
 
   return (
     <div 
@@ -40,6 +52,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, settings
         </div>
         
         <div className="space-y-6">
+           <div className="mb-4 flex flex-wrap gap-2">
+              <ActionButton href="https://apis.kuai.host">{t('settings.kuaiApi')}</ActionButton>
+              <ActionButton href="https://shop.kuai.host/">{t('settings.getCredits')}</ActionButton>
+              <ActionButton href="https://space.bilibili.com/3493076850968674">{t('settings.videoTutorial')}</ActionButton>
+           </div>
           <div>
             <label htmlFor="apiKey" className="block text-sm font-medium text-[var(--text-primary)] mb-1">{t('settings.apiKey.label')}</label>
             <input

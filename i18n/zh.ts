@@ -36,6 +36,9 @@ export default {
   },
   settings: {
     title: "设置",
+    kuaiApi: "酷爱API",
+    getCredits: "获取次数",
+    videoTutorial: "视频教程",
     apiKey: {
       label: "API 密钥",
       placeholder: "输入您的 Gemini API 密钥",
