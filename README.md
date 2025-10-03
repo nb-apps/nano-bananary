@@ -2,8 +2,10 @@
 
 香蕉超市 (Nano Bananary) 是一个功能强大且充满乐趣的Web应用程序，它利用 Google Gemini API 来执行各种富有创意的图像编辑和生成任务。您可以上传一张图片，从超过50种独特效果中进行选择，或者编写您自己的提示语，以令人惊叹的方式变换您的照片。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnb-apps%2Fnano-bananary)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnb-apps%2Fnano-bananary)  [视频教程](https://www.bilibili.com/video/BV1UuHGzHEbb/) [交流群](https://cnb.cool/fuliai/comfyui/-/issues/11)
 
+
+【[免部署直接用nb1.kuai.host](https://nb1.kuai.host/)】【[免部署直接用nb.kuai.host](https://nb.kuai.host/)】
 
 暴改自 ZHO 大佬的项目 Nano Bananary ，增加了一些模板及支持Vercel一键部署。
 ---

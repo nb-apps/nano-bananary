@@ -55,7 +55,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, settings
            <div className="mb-4 flex flex-wrap gap-2">
               <ActionButton href="https://apis.kuai.host">{t('settings.kuaiApi')}</ActionButton>
               <ActionButton href="https://shop.kuai.host/">{t('settings.getCredits')}</ActionButton>
-              <ActionButton href="https://space.bilibili.com/3493076850968674">{t('settings.videoTutorial')}</ActionButton>
+              <ActionButton href="https://www.bilibili.com/video/BV1UuHGzHEbb/">{t('settings.videoTutorial')}</ActionButton>
            </div>
           <div>
             <label htmlFor="apiKey" className="block text-sm font-medium text-[var(--text-primary)] mb-1">{t('settings.apiKey.label')}</label>
