@@ -12,7 +12,7 @@
 
 ## ✨ 主要功能
 
-- **📸 50+ 创意模板：** 一个庞大的一键式效果库，从将照片变成3D手办、钩针娃娃，到应用像素艺术、水彩和赛博朋克等艺术风格。
+- **📸 70+ 创意模板：** 一个庞大的一键式效果库，从将照片变成3D手办、钩针娃娃，到应用像素艺术、水彩和赛博朋克等艺术风格。
 - **✍️ 自定义提示：** 支持完整的文生图和图生图功能。您可以描述任何能想象到的变化，并选择性地上传参考图像用于风格或内容借鉴。您的创造力是唯一的限制！
 - **🎨 高级编辑工具：**
   - **蒙版编辑：** 在图像上绘制蒙版，将编辑效果应用于特定区域。
@@ -40,7 +40,10 @@
 
 1.  **克隆仓库**
     ```bash
-    git clone https://github.com/project-frame/nano-bananary.git
+    git clone https://github.com/nb-apps/nano-bananary.git
+    或
+    git clone https://cnb.cool/fuliai/nano_bananary
+    
     cd nano-bananary
     ```
 
