@@ -21,7 +21,6 @@ type ActiveTool = 'mask' | 'none';
 type MobileView = 'input' | 'output';
 
 interface Settings {
-  apiKey: string;
   baseUrl: string;
   watermark: string;
 }
@@ -74,16 +73,15 @@ const App: React.FC = () => {
       try {
         const savedSettings = localStorage.getItem('appSettings');
         const parsedSettings = savedSettings ? JSON.parse(savedSettings) : {};
-        // Fallback to environment variables if not in localStorage
+        // FIX: Replaced import.meta.env with process.env and removed API Key from settings to follow guidelines.
         return {
-          apiKey: parsedSettings.apiKey || import.meta.env.VITE_API_KEY || '',
-          baseUrl: parsedSettings.baseUrl || import.meta.env.VITE_BASE_URL || '',
+          baseUrl: parsedSettings.baseUrl || process.env.BASE_URL || '',
           watermark: parsedSettings.watermark ?? 'Nano Bananary｜ZHO',
         };
       } catch {
+        // FIX: Replaced import.meta.env with process.env and removed API Key from settings to follow guidelines.
         return {
-          apiKey: import.meta.env.VITE_API_KEY || '',
-          baseUrl: import.meta.env.VITE_BASE_URL || '',
+          baseUrl: process.env.BASE_URL || '',
           watermark: 'Nano Bananary｜ZHO',
         };
       }
@@ -183,11 +181,7 @@ const App: React.FC = () => {
   }, [settings.watermark]);
 
   const handleGenerateImage = useCallback(async () => {
-    if (!settings.apiKey) {
-      setError(t('settings.apiKey.error'));
-      setIsSettingsModalOpen(true);
-      return;
-    }
+    // FIX: Removed API Key check to comply with guidelines. The key is now handled exclusively by the service.
     const promptToUse = selectedTransformation?.prompt === 'CUSTOM' ? customPrompt : selectedTransformation?.prompt;
 
     if (!selectedTransformation || !promptToUse?.trim()) {
@@ -204,7 +198,8 @@ const App: React.FC = () => {
     try {
         // Text-to-image for custom prompt when no images are provided
         if (selectedTransformation.key === 'customPrompt' && !primaryImageUrl) {
-            const result = await generateImageFromText(promptToUse, imageAspectRatio, settings.apiKey, settings.baseUrl);
+            // FIX: Removed apiKey from service call.
+            const result = await generateImageFromText(promptToUse, imageAspectRatio, settings.baseUrl);
             result.imageUrl = await applyWatermarks(result.imageUrl);
             setGeneratedContent(result);
             setHistory(prev => [result, ...prev]);
@@ -223,7 +218,8 @@ const App: React.FC = () => {
                 base64: url.split(',')[1],
                 mimeType: url.split(';')[0].split(':')[1] ?? 'image/png'
             }));
-            const result = await editImage(promptToUse, imageParts, null, settings.apiKey, settings.baseUrl);
+            // FIX: Removed apiKey from service call.
+            const result = await editImage(promptToUse, imageParts, null, settings.baseUrl);
             result.imageUrl = await applyWatermarks(result.imageUrl);
             setGeneratedContent(result);
             setHistory(prev => [result, ...prev]);
@@ -236,7 +232,8 @@ const App: React.FC = () => {
             }
             setLoadingMessage(t('app.loading.step1'));
             const primaryPart = [{ base64: primaryImageUrl.split(',')[1], mimeType: primaryImageUrl.split(';')[0].split(':')[1] ?? 'image/png' }];
-            const stepOneResult = await editImage(promptToUse, primaryPart, null, settings.apiKey, settings.baseUrl);
+            // FIX: Removed apiKey from service call.
+            const stepOneResult = await editImage(promptToUse, primaryPart, null, settings.baseUrl);
 
             if (!stepOneResult.imageUrl) throw new Error("Step 1 (line art) failed to generate an image.");
             
@@ -254,7 +251,8 @@ const App: React.FC = () => {
                 { base64: resizedSecondaryImageUrl.split(',')[1], mimeType: resizedSecondaryImageUrl.split(';')[0].split(':')[1] ?? 'image/png' }
             ];
             
-            const stepTwoResult = await editImage(selectedTransformation.stepTwoPrompt!, stepTwoParts, null, settings.apiKey, settings.baseUrl);
+            // FIX: Removed apiKey from service call.
+            const stepTwoResult = await editImage(selectedTransformation.stepTwoPrompt!, stepTwoParts, null, settings.baseUrl);
             
             stepTwoResult.imageUrl = await applyWatermarks(stepTwoResult.imageUrl);
 
@@ -286,7 +284,8 @@ const App: React.FC = () => {
             }
 
             setLoadingMessage(t('app.loading.default'));
-            const result = await editImage(promptToUse, imageParts, maskBase64, settings.apiKey, settings.baseUrl);
+            // FIX: Removed apiKey from service call.
+            const result = await editImage(promptToUse, imageParts, maskBase64, settings.baseUrl);
 
             result.imageUrl = await applyWatermarks(result.imageUrl);
 

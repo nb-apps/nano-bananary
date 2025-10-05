@@ -5,6 +5,7 @@ export default {
     back: "Back",
     edit: "Edit",
     settings: "Settings",
+    customPrompt: "Custom Prompt",
     chooseAnotherEffect: "Choose Another Effect",
     generateImage: "Generate",
     generating: "Generating...",

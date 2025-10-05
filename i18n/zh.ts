@@ -5,6 +5,7 @@ export default {
     back: "返回",
     edit: "编辑",
     settings: "设置",
+    customPrompt: "自定义提示",
     chooseAnotherEffect: "选择其他效果",
     generateImage: "生成",
     generating: "生成中...",
